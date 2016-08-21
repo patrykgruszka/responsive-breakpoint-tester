@@ -27,7 +27,6 @@
         screenTypes: ['xs', 'sm', 'md', 'lg'],
         htmlId: 'responsive-tester',
         container: 'body',
-        classPrefix: 'screen-',
         classTemplate: 'visible-{device}-block'
     };
 
