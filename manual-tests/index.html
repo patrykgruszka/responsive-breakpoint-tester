@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Device Tester</title>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <script src="../dist/responsive-tester.js"></script>
+    <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+</head>
+<body>
+
+<script>
+    var screenTypes = ['xs', 'sm', 'md', 'lg'],
+            $body = $('body');
+    $body.on('init.screen', function(event, devices) {
+        console.log('EVENT FIRED: init.screen', devices);
+    });
+
+    $body.on('change.screen', function(event, devices) {
+        console.log('EVENT FIRED: change.screen', devices);
+    });
+
+    screenTypes.forEach(function(device) {
+        $body.on('in.screen.' + device, function(event, devices) {
+            console.log('EVENT FIRED: ' + 'in.screen.' + device, devices);
+        });
+
+        $body.on('out.screen.' + device, function(event, devices) {
+            console.log('EVENT FIRED: ' + 'out.screen.' + device, devices);
+        });
+    });
+
+    new ResponsiveTester();
+
+</script>
+</body>
+</html>

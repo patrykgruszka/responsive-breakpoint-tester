@@ -1,3 +1,10 @@
+/*!
+ * Responsive Tester
+ * Version: 1.0.0
+ * Author: Patryk Gruszka
+ * URL: https://github.com/patrykgruszka/responsive-tester
+ * License: MIT
+ */
 (function(window, $) {
     'use strict';
 
@@ -13,13 +20,13 @@
         this.createElement();
         this.device = this.testDevice();
         this.setClass(this.device);
-        this.emitEvent(this.device);
+        this.emitEvents(this.device);
         $(window).on("resize", this.resize.bind(this));
     };
 
     ResponsiveTester.defaults = {
         screenTypes: ['xs', 'sm', 'md', 'lg'],
-        htmlId: 'bootstrap-responsive-tester',
+        htmlId: 'responsive-tester',
         container: 'body',
         classPrefix: 'screen-',
         classTemplate: 'visible-{device}-block'
@@ -65,19 +72,24 @@
         if (outDevice != inDevice) {
             this.device = inDevice;
             this.setClass(this.device, outDevice);
-            this.emitEvent(inDevice, outDevice);
+            this.emitEvents(inDevice, outDevice);
         }
     };
 
-    ResponsiveTester.prototype.emitEvent = function(inDevice, outDevice) {
+    ResponsiveTester.prototype.emitEvents = function(inDevice, outDevice) {
+        var params = {
+            inDevice: inDevice,
+            outDevice: outDevice || false
+        };
+
         if (outDevice) {
             this.$container
-                .trigger('change.screen')
-                .trigger('out.screen.' + outDevice);
+                .trigger('change.screen', params)
+                .trigger('out.screen.' + outDevice, params);
         } else {
-            this.$container.trigger('init.screen');
+            this.$container.trigger('init.screen', params);
         }
-        this.$container.trigger('in.screen.' + inDevice);
+        this.$container.trigger('in.screen.' + inDevice, params);
     };
 
     ResponsiveTester.prototype.setClass = function(inDevice, outDevice) {
