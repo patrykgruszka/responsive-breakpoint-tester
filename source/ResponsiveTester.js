@@ -70,7 +70,6 @@
         var inDevice = this.testDevice();
         if (outDevice != inDevice) {
             this.device = inDevice;
-            this.setClass(this.device, outDevice);
             this.emitEvents(inDevice, outDevice);
         }
     };
@@ -95,8 +94,77 @@
         return this.device;
     };
 
-    ResponsiveTester.prototype.is = function(device) {
-        return this.device == device;
+    ResponsiveTester.prototype.getDeviceIndex = function(device) {
+        var screenTypes = this.settings.screenTypes;
+        return screenTypes.indexOf(device);
+    };
+
+    ResponsiveTester.prototype.isEqual = function(device) {
+        return this.device === device;
+    };
+
+    ResponsiveTester.prototype.isNotEqual = function(device) {
+        return this.device !== device;
+    };
+
+    ResponsiveTester.prototype.isGreater = function(device) {
+        return this.getDeviceIndex(this.device) > this.getDeviceIndex(device);
+    };
+
+    ResponsiveTester.prototype.isLess = function(device) {
+        return this.getDeviceIndex(this.device) < this.getDeviceIndex(device);
+    };
+
+    ResponsiveTester.prototype.isGreaterOrEqual = function(device) {
+        return this.getDeviceIndex(this.device) >= this.getDeviceIndex(device);
+    };
+
+    ResponsiveTester.prototype.isLessOrEqual = function(device) {
+        return this.getDeviceIndex(this.device) <= this.getDeviceIndex(device);
+    };
+
+    ResponsiveTester.prototype.findOperator = function(expression) {
+        var operators = ['>', '<', '>=', '<=', '!=', '=='],
+            operator = '==';
+
+        for (var i = 0; i < operators.length; i++) {
+            var candidate = operators[i];
+            if (expression.slice(0, candidate.length) == candidate) {
+                operator = candidate;
+            }
+        }
+
+        return operator;
+    };
+
+    ResponsiveTester.prototype.findDevice = function(expression) {
+        var screenTypes = this.settings.screenTypes,
+            device = false;
+
+        for (var i = 0; i < screenTypes.length; i++) {
+            var candidate = screenTypes[i];
+            if (expression.indexOf(candidate) != -1) {
+                device = candidate;
+            }
+        }
+
+        return device;
+    };
+
+    ResponsiveTester.prototype.is = function(expression) {
+        expression = expression.replace(/\s/g, '');
+        var operator = this.findOperator(expression),
+            device = this.findDevice(expression);
+
+        var methods = {
+            '>': 'isGreater',
+            '<': 'isLess',
+            '>=': 'isGreaterOrEqual',
+            '<=': 'isLessOrEqual',
+            '!=': 'isNotEqual',
+            '==': 'isEqual'
+        };
+        return ResponsiveTester.prototype[methods[operator]].call(this, device);
     };
 
     window.ResponsiveTester = ResponsiveTester;
