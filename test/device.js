@@ -15,5 +15,6 @@ describe('ResponsiveTester', function() {
 
     it('should set defice type', function() {
         expect(screen.get().length).toBeGreaterThan(0);
+
     });
 });

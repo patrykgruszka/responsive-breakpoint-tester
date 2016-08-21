@@ -19,7 +19,6 @@
 
         this.createElement();
         this.device = this.testDevice();
-        this.setClass(this.device);
         this.emitEvents(this.device);
         $(window).on("resize", this.resize.bind(this));
     };
@@ -90,13 +89,6 @@
             this.$container.trigger('init.screen', params);
         }
         this.$container.trigger('in.screen.' + inDevice, params);
-    };
-
-    ResponsiveTester.prototype.setClass = function(inDevice, outDevice) {
-        if (outDevice) {
-            this.$container.removeClass(this.settings.classPrefix + outDevice);
-        }
-        this.$container.addClass(this.settings.classPrefix + inDevice);
     };
 
     ResponsiveTester.prototype.get = function() {
