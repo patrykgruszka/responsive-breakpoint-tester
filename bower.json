@@ -1,0 +1,17 @@
+{
+  "name": "responsive-breakpoint-tester",
+  "description": "Detect responsive breakpoints in JavaScript",
+  "main": "source/ResponsiveTester.js",
+  "authors": [
+    "Patryk Gruszka"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "responsive",
+    "breakpoint",
+    "tester",
+    "bootstrap",
+    "foundation"
+  ],
+  "homepage": "https://github.com/patrykgruszka/responsive-breakpoint-tester"
+}

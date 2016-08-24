@@ -1,6 +1,13 @@
 # Responsive breakpoint tester 
 Detect responsive breakpoints in JavaScript.
 
+## Installation
+
+Vía Bower
+```
+bower install responsive-breakpoint-tester
+```
+
 ## Basic usage - Responsive breakpoint tester for Bootstrap 3
 
 ### Initialization

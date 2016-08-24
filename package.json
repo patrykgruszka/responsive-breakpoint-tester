@@ -1,5 +1,5 @@
 {
-  "name": "bootstrap-device",
+  "name": "responsive-breakpoint-tester",
   "version": "1.0.0",
   "description": "Detect responsive breakpoints in JavaScript",
   "scripts": {
@@ -8,7 +8,7 @@
   "main": "source/ResponsiveTester.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/patrykgruszka/responsive-tester"
+    "url": "https://github.com/patrykgruszka/responsive-breakpoint-tester"
   },
   "author": "Patryk Gruszka",
   "license": "MIT",
