@@ -86,11 +86,12 @@ $(function() {
 ```
 
 ## Responsive breakpoint tester for Bootstrap 4
-Just add new breakpoint to screenTypes array
+Just add new breakpoint to screenTypes array and change the classTemplate.
 ```javascript
 $(function() {
     var screen = new ResponsiveTester({
-        screenTypes: ['xs', 'sm', 'md', 'lg', 'xl']
+        screenTypes: ['xs', 'sm', 'md', 'lg', 'xl'],
+        classTemplate: 'hidden-{--device}-down hidden-{++device}-up'
     });
 });
 ```

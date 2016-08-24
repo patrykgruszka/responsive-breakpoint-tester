@@ -1,8 +1,8 @@
 /*!
  * Responsive Tester
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Patryk Gruszka
- * URL: https://github.com/patrykgruszka/responsive-tester
+ * URL: https://github.com/patrykgruszka/responsive-breakpoint-tester
  * License: MIT
  */
 (function(window, $) {
@@ -30,8 +30,29 @@
         classTemplate: 'visible-{device}-block'
     };
 
+    ResponsiveTester.prototype.get = function() {
+        return this.device;
+    };
+
+    ResponsiveTester.prototype.getDeviceIndex = function(device) {
+        var screenTypes = this.settings.screenTypes;
+        return screenTypes.indexOf(device);
+    };
+
+    ResponsiveTester.prototype.prevDevice = function(device) {
+        return this.settings.screenTypes[this.getDeviceIndex(device) - 1] || null;
+    };
+
+    ResponsiveTester.prototype.nextDevice = function(device) {
+        return this.settings.screenTypes[this.getDeviceIndex(device) + 1] || null;
+    };
+
     ResponsiveTester.prototype.getClassName = function(device) {
-        return this.settings.classTemplate.replace('{device}', device);
+        var template = this.settings.classTemplate;
+        return template
+            .replace('{device}', device)
+            .replace('{--device}', this.prevDevice(device))
+            .replace('{++device}', this.nextDevice(device));
     };
 
     ResponsiveTester.prototype.createElement = function() {
@@ -41,7 +62,7 @@
         for (var i = 0; i < types.length; i++) {
             var device = types[i],
                 className = this.getClassName(device);
-            elements.push('<div class="' + className + '"></div>');
+            elements.push('<div class="device-'+ device + ' ' + className + '"></div>');
         }
 
         this.$element = $('<div id="' + this.settings.htmlId + '">' + elements.join('') + '</div>');
@@ -53,10 +74,8 @@
             screen;
 
         for (var i = 0; i < types.length; i++) {
-            var device = types[i],
-                className = this.getClassName(device);
-
-            if (this.$element.find('.' + className).is(':visible')) {
+            var device = types[i];
+            if (this.$element.find('.device-' + device).is(':visible')) {
                 screen = device;
             }
         }
@@ -87,15 +106,6 @@
             this.$container.trigger('init.screen', params);
         }
         this.$container.trigger('in.screen.' + inDevice, params);
-    };
-
-    ResponsiveTester.prototype.get = function() {
-        return this.device;
-    };
-
-    ResponsiveTester.prototype.getDeviceIndex = function(device) {
-        var screenTypes = this.settings.screenTypes;
-        return screenTypes.indexOf(device);
     };
 
     ResponsiveTester.prototype.isEqual = function(device) {
