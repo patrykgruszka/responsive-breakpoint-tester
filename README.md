@@ -61,7 +61,7 @@ $body.on('in.screen.xs', function(event, devices) {
     // Code executed when viewport is xs or was changed to xs
 });
 
-$body.on('out.screen.xs' + device, function(event, devices) {
+$body.on('out.screen.xs', function(event, devices) {
     // Code executed when viewport is no longer xs
 });
 ```
