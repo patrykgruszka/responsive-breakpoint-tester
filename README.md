@@ -1,5 +1,5 @@
 # Responsive breakpoint tester 
-Detect responsive breakpoints in JavaScript.
+Detect responsive breakpoints in JavaScript and fire events on breakpoints change.
 
 ## Installation
 
@@ -8,45 +8,45 @@ Vía Bower
 bower install responsive-breakpoint-tester
 ```
 
-## Basic usage - Responsive breakpoint tester for Bootstrap 3
+## Basic usage - How to detect breakpoints in Bootstrap 3 using JavaScript
 
 ### Initialization
 First you have to create an object instance. ResponsiveTester is a singleton class, so the constructor will always return the same object if is already created.
 ```javascript
 $(function() {
-    var screen = new ResponsiveTester();
+    var viewport = new ResponsiveTester();
     //...
 });
 ```
 
-### Checking current breakpoint
+## How to check current breakpoint in Bootstrap using JavaScript?
 ```javascript
-if (screen.is('xs')) {
+if (viewport.is('xs')) {
     // Executed only on xs breakpoint
 }
 
-if (screen.is('!=xs')) {
+if (viewport.is('!=xs')) {
     // Executed on all breakpoints that are not equal xs (sm, md, lg)
 }
 
-if (screen.is('<md')) {
+if (viewport.is('<md')) {
     // Executed on breakpoints that are smaller than md (xs, sm)
 }
 
-if (screen.is('<=md')) {
+if (viewport.is('<=md')) {
     // Executed on breakpoints that are smaller or equal to md (xs, sm, md)
 }
 
-if (screen.is('>md')) {
+if (viewport.is('>md')) {
     // Executed on breakpoints that are larger than md (lg)
 }
 
-if (screen.is('>=md')) {
+if (viewport.is('>=md')) {
     // Executed on breakpoints that are larger or equal to md (md, lg)
 }
 ```
 
-### Events
+## Fire events on Bootstrap breakpoint change 
 ```javascript
 var $body = $('body');
 $body.on('init.screen', function(event, devices) {
@@ -76,7 +76,7 @@ You can pass a configuration object when the instance is initialized
 * classTemplate - Template for testable element class. The {device} will be replaced by the values from screenTypes array
 ```javascript
 $(function() {
-    var screen = new ResponsiveTester({
+    var viewport = new ResponsiveTester({
         screenTypes: ['xs', 'sm', 'md', 'lg'],
         htmlId: 'responsive-tester',
         container: 'body',
@@ -85,23 +85,23 @@ $(function() {
 });
 ```
 
-## Responsive breakpoint tester for Bootstrap 4
+## How to detect breakpoints in Bootstrap 4 using JavaScript
 Just add new breakpoint to screenTypes array and change the classTemplate.
 ```javascript
 $(function() {
-    var screen = new ResponsiveTester({
+    var viewport = new ResponsiveTester({
         screenTypes: ['xs', 'sm', 'md', 'lg', 'xl'],
         classTemplate: 'hidden-{--device}-down hidden-{++device}-up'
     });
 });
 ```
 
-## Responsive breakpoint tester for Foundation
+## How to detect breakpoints in Foundation using JavaScript
 Change screenTypes and classTemplate
 ```javascript
 $(function() {
-    var screen = new ResponsiveTester({
-        screenTypes: ['small', 'medium', 'large', 'xlarge']
+    var viewport = new ResponsiveTester({
+        screenTypes: ['small', 'medium', 'large', 'xlarge'],
         classTemplate: 'show-for-{device}-only'
     });
 });
