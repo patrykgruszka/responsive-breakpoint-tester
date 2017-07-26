@@ -93,6 +93,16 @@ $(function() {
         screenTypes: ['xs', 'sm', 'md', 'lg', 'xl'],
         classTemplate: 'hidden-{--device}-down hidden-{++device}-up'
     });
+    
+    // current breakpoint check
+    if (viewport.is('>=xl')) {
+        // Executed on breakpoints that are larger or equal to xl
+    }
+    
+    // execute code when window width is xl or was changed to xl
+    $('body').on('in.screen.xl', function(event, devices) {
+        // code to execute
+    });
 });
 ```
 
@@ -103,6 +113,16 @@ $(function() {
     var viewport = new ResponsiveTester({
         screenTypes: ['small', 'medium', 'large', 'xlarge'],
         classTemplate: 'show-for-{device}-only'
+    });
+    
+    // current breakpoint check
+    if (viewport.is('>=medium')) {
+        // Executed on breakpoints that are larger or equal to medium
+    }
+    
+    // execute code when window width medium width or was changed to medium
+    $('body').on('in.screen.medium', function(event, devices) {
+        // code to execute
     });
 });
 ```
