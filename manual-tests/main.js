@@ -1,5 +1,7 @@
+var viewport;
+
 $(function() {
-    var screenTypes = ['xs', 'sm', 'md', 'lg'],
+    var screenTypes = ['xs', 'sm', 'md', 'lg', 'xl'],
         $body = $('body');
 
     $body.on('init.screen', function(event, devices) {
@@ -20,29 +22,29 @@ $(function() {
         });
     });
 
-    var screen = new ResponsiveTester();
+    viewport = new ResponsiveTester();
 
-    if (screen.is('xs')) {
+    if (viewport.is('xs')) {
         // Executed only on xs breakpoint
     }
 
-    if (screen.is('!=xs')) {
+    if (viewport.is('!=xs')) {
         // Executed on all breakpoints that are not xs (sm, md, lg)
     }
 
-    if (screen.is('<md')) {
+    if (viewport.is('<md')) {
         // Executed on breakpoints that are smaller than md (xs, sm)
     }
 
-    if (screen.is('<=md')) {
+    if (viewport.is('<=md')) {
         // Executed on breakpoints that are smaller or equal to md (xs, sm, md)
     }
 
-    if (screen.is('>md')) {
+    if (viewport.is('>md')) {
         // Executed on breakpoints that are larger than md (lg)
     }
 
-    if (screen.is('>=md')) {
+    if (viewport.is('>=md')) {
         // Executed on breakpoints that are larger or equal to md (md, lg)
     }
 });

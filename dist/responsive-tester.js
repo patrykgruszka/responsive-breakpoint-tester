@@ -1,6 +1,6 @@
 /*!
  * Responsive Tester
- * Version: 1.1.0
+ * Version: 2.0.0
  * Author: Patryk Gruszka
  * URL: https://github.com/patrykgruszka/responsive-breakpoint-tester
  * License: MIT
@@ -24,10 +24,16 @@
     };
 
     ResponsiveTester.defaults = {
-        screenTypes: ['xs', 'sm', 'md', 'lg'],
+        screenTypes: ['xs', 'sm', 'md', 'lg', 'xl'],
+        screenTest: {
+            'xs': 'd-block d-sm-none',
+            'sm': 'd-none d-sm-block d-md-none',
+            'md': 'd-none d-md-block d-lg-none',
+            'lg': 'd-none d-md-block d-xl-none',
+            'xl': 'd-none d-xl-block'
+        },
         htmlId: 'responsive-tester',
-        container: 'body',
-        classTemplate: 'visible-{device}-block'
+        container: 'body'
     };
 
     ResponsiveTester.prototype.get = function() {
@@ -39,20 +45,8 @@
         return screenTypes.indexOf(device);
     };
 
-    ResponsiveTester.prototype.prevDevice = function(device) {
-        return this.settings.screenTypes[this.getDeviceIndex(device) - 1] || null;
-    };
-
-    ResponsiveTester.prototype.nextDevice = function(device) {
-        return this.settings.screenTypes[this.getDeviceIndex(device) + 1] || null;
-    };
-
     ResponsiveTester.prototype.getClassName = function(device) {
-        var template = this.settings.classTemplate;
-        return template
-            .replace('{device}', device)
-            .replace('{--device}', this.prevDevice(device))
-            .replace('{++device}', this.nextDevice(device));
+        return this.settings.screenTest[device];
     };
 
     ResponsiveTester.prototype.createElement = function() {
@@ -79,14 +73,13 @@
                 screen = device;
             }
         }
-
         return screen;
     };
 
     ResponsiveTester.prototype.resize = function() {
         var outDevice = this.device;
         var inDevice = this.testDevice();
-        if (outDevice != inDevice) {
+        if (outDevice !== inDevice) {
             this.device = inDevice;
             this.emitEvents(inDevice, outDevice);
         }
@@ -138,7 +131,7 @@
 
         for (var i = 0; i < operators.length; i++) {
             var candidate = operators[i];
-            if (expression.slice(0, candidate.length) == candidate) {
+            if (expression.slice(0, candidate.length) === candidate) {
                 operator = candidate;
             }
         }
@@ -152,7 +145,7 @@
 
         for (var i = 0; i < screenTypes.length; i++) {
             var candidate = screenTypes[i];
-            if (expression.indexOf(candidate) != -1) {
+            if (expression.indexOf(candidate) !== -1) {
                 device = candidate;
             }
         }

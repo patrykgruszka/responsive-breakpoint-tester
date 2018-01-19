@@ -5,7 +5,7 @@ describe('ResponsiveTester', function() {
     });
 
     var options = {
-        htmlId: 'responsive-bitch'
+        htmlId: 'responsive-puta'
     };
     var screen = new ResponsiveTester(options);
 
@@ -13,7 +13,7 @@ describe('ResponsiveTester', function() {
         expect($('#' + options.htmlId)[0]).toBeInDOM();
     });
 
-    it('should set defice type', function() {
+    it('should set device type', function() {
         expect(screen.get().length).toBeGreaterThan(0);
 
     });

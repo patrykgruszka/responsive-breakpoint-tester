@@ -3,12 +3,12 @@ Detect responsive breakpoints in JavaScript and fire events on breakpoints chang
 
 ## Installation
 
-Vía Bower
+Via Bower
 ```
 bower install responsive-breakpoint-tester
 ```
 
-## Basic usage - How to detect breakpoints in Bootstrap 3 using JavaScript
+## Basic usage - How to detect breakpoints in Bootstrap 4 using JavaScript
 
 ### Initialization
 First you have to create an object instance. ResponsiveTester is a singleton class, so the constructor will always return the same object if is already created.
@@ -71,36 +71,47 @@ You can pass a configuration object when the instance is initialized
 
 ### Options
 * screenTypes - Array with screen types. Proper order is mandatory
+* screenTest - Object with visible only CSS class set for each screen type 
 * htmlId - Id of element that script will create
 * container - Selector of container for plugin, used also in event emitter
-* classTemplate - Template for testable element class. The {device} will be replaced by the values from screenTypes array
-```javascript
-$(function() {
-    var viewport = new ResponsiveTester({
-        screenTypes: ['xs', 'sm', 'md', 'lg'],
-        htmlId: 'responsive-tester',
-        container: 'body',
-        classTemplate: 'visible-{device}-block'
-    });
-});
-```
-
-## How to detect breakpoints in Bootstrap 4 using JavaScript
-Just add new breakpoint to screenTypes array and change the classTemplate.
 ```javascript
 $(function() {
     var viewport = new ResponsiveTester({
         screenTypes: ['xs', 'sm', 'md', 'lg', 'xl'],
-        classTemplate: 'hidden-{--device}-down hidden-{++device}-up'
+        screenTest: {
+            'xs': 'd-block d-sm-none',
+            'sm': 'd-none d-sm-block d-md-none',
+            'md': 'd-none d-md-block d-lg-none',
+            'lg': 'd-none d-md-block d-xl-none',
+            'xl': 'd-none d-xl-block'
+        },
+        htmlId: 'responsive-tester',
+        container: 'body'
+    });
+});
+```
+
+## How to detect breakpoints in Bootstrap 3 using JavaScript
+Just add new breakpoint to screenTypes array and change the classTemplate.
+```javascript
+$(function() {
+    var viewport = new ResponsiveTester({
+        screenTypes: ['xs', 'sm', 'md', 'lg'],
+        screenTest: {
+            'xs': 'visible-xs-block',
+            'sm': 'visible-sm-block',
+            'md': 'visible-md-block',
+            'lg': 'visible-lg-block'
+        }
     });
     
     // current breakpoint check
-    if (viewport.is('>=xl')) {
-        // Executed on breakpoints that are larger or equal to xl
+    if (viewport.is('>=lg')) {
+        // Executed on breakpoints that are larger or equal to lg
     }
     
-    // execute code when window width is xl or was changed to xl
-    $('body').on('in.screen.xl', function(event, devices) {
+    // execute code when window width is lg or was changed to lg
+    $('body').on('in.screen.lg', function(event, devices) {
         // code to execute
     });
 });
@@ -112,7 +123,12 @@ Change screenTypes and classTemplate
 $(function() {
     var viewport = new ResponsiveTester({
         screenTypes: ['small', 'medium', 'large', 'xlarge'],
-        classTemplate: 'show-for-{device}-only'
+        screenTest: {
+            'small': 'show-for-small-only',
+            'medium': 'show-for-medium-only',
+            'large': 'show-for-large-only',
+            'xlarge': 'show-for-xlarge-only'
+        }
     });
     
     // current breakpoint check
