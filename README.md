@@ -26,7 +26,7 @@ if (viewport.is('xs')) {
 }
 
 if (viewport.is('!=xs')) {
-    // Executed on all breakpoints that are not equal xs (sm, md, lg)
+    // Executed on all breakpoints that are not equal xs (sm, md, lg, xl)
 }
 
 if (viewport.is('<md')) {
@@ -38,11 +38,11 @@ if (viewport.is('<=md')) {
 }
 
 if (viewport.is('>md')) {
-    // Executed on breakpoints that are larger than md (lg)
+    // Executed on breakpoints that are larger than md (lg, xl)
 }
 
 if (viewport.is('>=md')) {
-    // Executed on breakpoints that are larger or equal to md (md, lg)
+    // Executed on breakpoints that are larger or equal to md (md, lg, xl)
 }
 ```
 
