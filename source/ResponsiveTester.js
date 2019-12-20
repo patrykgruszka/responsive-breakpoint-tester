@@ -29,7 +29,7 @@
             'xs': 'd-block d-sm-none',
             'sm': 'd-none d-sm-block d-md-none',
             'md': 'd-none d-md-block d-lg-none',
-            'lg': 'd-none d-md-block d-xl-none',
+            'lg': 'd-none d-lg-block d-xl-none',
             'xl': 'd-none d-xl-block'
         },
         htmlId: 'responsive-tester',
